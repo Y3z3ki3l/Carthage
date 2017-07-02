@@ -554,8 +554,12 @@ public func buildScheme( // swiftlint:disable:this function_body_length cyclomat
 
 			case 2:
 				let (simulatorSDKs, deviceSDKs) = SDK.splitSDKs(sdks)
-				guard let deviceSDK = deviceSDKs.first else { fatalError("Could not find device SDK in \(sdks)") }
-				guard let simulatorSDK = simulatorSDKs.first else { fatalError("Could not find simulator SDK in \(sdks)") }
+				guard let deviceSDK = deviceSDKs.first else {
+					fatalError("Could not find device SDK in \(sdks)")
+				}
+				guard let simulatorSDK = simulatorSDKs.first else {
+					fatalError("Could not find simulator SDK in \(sdks)")
+				}
 
 				return settingsByTarget(buildSDK(deviceSDK))
 					.flatMap(.concat) { settingsEvent -> SignalProducer<TaskEvent<(BuildSettings, BuildSettings)>, CarthageError> in
@@ -818,7 +822,10 @@ public func buildInDirectory(
 			}
 			.collectTaskEvents()
 			.flatMapTaskEvents(.concat) { (urls: [URL]) -> SignalProducer<(), CarthageError> in
-				guard let dependency = dependency, let rootDirectoryURL = rootDirectoryURL else { return .empty }
+				guard let dependency = dependency, let rootDirectoryURL = rootDirectoryURL else {
+					return .empty
+				}
+				
 				return createVersionFile(
 					for: dependency.dependency, version: dependency.version,
 					platforms: options.platforms, buildProducts: urls, rootDirectoryURL: rootDirectoryURL

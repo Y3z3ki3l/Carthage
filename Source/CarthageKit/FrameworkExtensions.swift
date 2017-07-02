@@ -259,6 +259,7 @@ extension URL {
 
 	internal func volumeSupportsFileCloning() throws -> Bool {
 		guard #available(macOS 10.12, *) else { return false }
+
 		let keys: Set<URLResourceKey> = [ .volumeSupportsFileCloningKey ]
 
 		let values = try self.resourceValues(forKeys: keys).allValues
